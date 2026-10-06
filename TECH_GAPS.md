@@ -39,15 +39,14 @@ thread overhead — not a correctness gap, just a scalability one that
 would only matter at much higher concurrency than this app currently runs.
 
 ## 4. CI coverage
-`.github/workflows/tests.yml` runs `pytest` on `ubuntu-latest` only, across
-Python 3.10–3.12. **Every real bug reported in this session came from a
-Windows user** — CI never runs on `windows-latest`, so a platform-specific
-regression (like a Windows-only path or subprocess console-window issue)
-would ship undetected. Adding a `windows-latest` (and ideally
-`macos-latest`) matrix leg is the single highest-value CI gap.
+**RESOLVED at the repository-configuration level:** `.github/workflows/tests.yml`
+now runs the pure-logic test suite on `ubuntu-latest`, `windows-latest`, and
+`macos-latest` across Python 3.9–3.12. This improves platform regression
+visibility, but the repository still needs fresh green CI receipts before
+claiming those matrix combinations have passed.
 
 ## 5. Test coverage
-19 tests, all against the pure-logic layer (`SmartRouter`, `url_utils`).
+19 recorded tests, all against the pure-logic layer (`SmartRouter`, `url_utils`).
 Zero automated coverage of: the 18 engines (even mocked-network unit tests
 would have caught the `soundcloud_lib`→`sclib` import-name bug and the
 `scsearch`+flat-mode bug found this session before a user had to report
@@ -64,6 +63,10 @@ but there's no opt-in crash/error reporting (e.g. Sentry). Every bug this
 session required the user to manually find and paste a log excerpt —
 standard practice for a shipped desktop app at this scale is an opt-in
 "send this error report" prompt on an unhandled exception.
+
+## Resolved since this report was written
+- Repository-level engineering contract, security policy, threat model, checkpoint, and roadmap are now present.
+- Cross-platform CI workflow is now present; green status remains unverified until a completed run is observed.
 
 ## Not a gap
 - PySide6 (`>=6.6` floor) is a fine choice and current — Qt for Python is
