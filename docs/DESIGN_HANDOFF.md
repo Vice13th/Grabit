@@ -36,6 +36,9 @@ No random green/purple panels, no generic SaaS rainbow gradients, no fake progre
 ## Verification gate
 Capture startup, queue, active transfer, retry/error, and completion states. Verify loading animations do not interfere with worker/UI responsiveness.
 
+> WORKFLOW: INSPECT → REPORT → IMPLEMENT → VERIFY
+> BEFORE IMPLEMENTATION: Read AGENTS.md, CHECKPOINT.md, and the current roadmap/technical-gap document. Reconcile this handoff with those sources before changing code.
+
 ## Execution hardening
 
 ### OBSERVED implementation anchors
