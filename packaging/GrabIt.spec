@@ -2,7 +2,7 @@
 from pathlib import Path
 from PyInstaller.utils.hooks import collect_submodules
 
-ROOT = Path(SPECPATH).resolve().parent.parent
+ROOT = Path(SPECPATH).resolve().parent
 ASSET_DIR = ROOT / "grabit" / "gui" / "assets"
 datas = [
     (str(ASSET_DIR / "logo.png"), "grabit/gui/assets"),
