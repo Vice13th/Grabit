@@ -1,9 +1,5 @@
-; GrabIt installer — Inno Setup script (https://jrsoftware.org/isinfo.php)
-; Run on Windows, after building dist\GrabIt.exe (see build_installer.md):
-;   iscc installer.iss
-; Produces GrabIt-Setup-1.0.4.exe — a single branded installer that puts
-; GrabIt.exe + Start Menu/Desktop shortcuts on the target machine, all using
-; the app's logo as the icon (installer wizard, shortcuts, uninstaller).
+; GrabIt visible Windows installer.
+; Build dist\GrabIt.exe first, then compile with Inno Setup (ISCC.exe).
 
 #define MyAppName "GrabIt"
 #define MyAppVersion "1.0.4"
@@ -14,22 +10,26 @@ AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
-OutputBaseFilename=GrabIt-Setup-{#MyAppVersion}
+OutputBaseFilename=GrabIt-1.0.4-Windows-x64-Setup
 Compression=lzma2
 SolidCompression=yes
 SetupIconFile=grabit\gui\assets\logo.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
-; WizardSmallImageFile / WizardImageFile can point at logo.png-derived BMPs
-; for a fully branded install wizard, if you want the extra polish:
-; WizardSmallImageFile=grabit\gui\assets\logo-small.bmp
-; WizardImageFile=grabit\gui\assets\logo-wizard.bmp
+ArchitecturesAllowed=x64compatible
+ArchitecturesInstallIn64BitMode=x64compatible
+DisableProgramGroupPage=yes
+
+[Tasks]
+Name: "startmenu"; Description: "Create a Start Menu shortcut"; GroupDescription: "Shortcuts:"
+Name: "desktopicon"; Description: "Create a Desktop shortcut"; GroupDescription: "Shortcuts:"
+Name: "launchafterinstall"; Description: "Launch GrabIt after installation"; GroupDescription: "After installation:"
 
 [Files]
 Source: "dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppExeName}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppExeName}"
+Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppExeName}"; Tasks: startmenu
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "Launch GrabIt"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#MyAppExeName}"; Description: "Launch GrabIt"; Flags: nowait postinstall skipifsilent; Tasks: launchafterinstall
