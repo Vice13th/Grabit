@@ -1,0 +1,54 @@
+name: windows-release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  package-windows:
+    runs-on: windows-latest
+    env:
+      GRABIT_PYTHON: python
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build executable
+        shell: powershell
+        run: .\packaging\build_windows.ps1
+
+      - name: Compile Inno Setup installer
+        shell: powershell
+        run: |
+          $iscc = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) {
+            throw "Inno Setup 6 was not found on the GitHub Actions runner."
+          }
+          & $iscc installer.iss
+          if ($LASTEXITCODE -ne 0) {
+            throw "ISCC failed with exit code $LASTEXITCODE."
+          }
+
+      - name: Validate release artifacts
+        shell: powershell
+        run: |
+          if (-not (Test-Path "dist\GrabIt.exe")) { throw "GrabIt.exe missing." }
+          if (-not (Test-Path "Output\GrabIt-1.0.4-Windows-x64-Setup.exe")) { throw "Installer missing." }
+
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: GrabIt-1.0.4-Windows-x64
+          path: |
+            dist/GrabIt.exe
+            Output/GrabIt-1.0.4-Windows-x64-Setup.exe
