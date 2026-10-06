@@ -35,3 +35,34 @@ No random green/purple panels, no generic SaaS rainbow gradients, no fake progre
 
 ## Verification gate
 Capture startup, queue, active transfer, retry/error, and completion states. Verify loading animations do not interfere with worker/UI responsiveness.
+
+## Execution hardening
+
+### OBSERVED implementation anchors
+- Main UI: grabit/gui/main_window.py
+- Shared visual theme: grabit/gui/theme.py and styles.py
+- Startup splash: grabit/gui/splash.py
+- Motion helpers: grabit/gui/anim_widgets.py
+- Logo asset: grabit/gui/assets/logo.png
+- Main window owns DownloadThread and pages communicate through signals/update methods.
+
+### CURRENT baseline versus TARGET
+The current theme and splash are red-led. The target is slate/graphite with warm copper/orange product identity. This is a coherent theme migration, not permission to recolor every semantic state orange.
+
+### Loading hard rule
+Preserve the existing SplashScreen API, real progress updates, fade handoff and logo asset. Do not create a second splash or replace real progress with fake timed progress.
+
+### Worker/UI hard rule
+Visual work must never move download/network work into the GUI thread or alter DownloadThread ownership, pause/resume/cancel semantics, engine routing, retry behavior or dependency safety controls.
+
+### Semantic color hard rule
+Copper/orange is product identity/activity. Green remains semantic success. Yellow/orange may represent warning when appropriate. Red remains actual error/danger. Do not flatten all statuses into one accent.
+
+### Easter Egg hard rule
+Easter Eggs must not modify URLs, target paths, retries, engine selection, download state or worker lifecycle. They must remain non-blocking.
+
+### Stop and report
+Stop if a requested state has no real lifecycle signal, progress is unavailable, a design change would require editing worker behavior, or a new dependency is needed solely for decoration.
+
+### Evidence required before completion
+Verify splash launch, each real splash update, handoff, idle/active download, queue, progress, pause/resume, cancellation, retry, completion, failure, Engines, Settings, Logs, Media Studio, dependency/update surfaces, resize/focus states and Easter Eggs.
