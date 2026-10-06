@@ -1,4 +1,4 @@
-# GrabIt v1.0.0 — Universal Media Downloader
+# GrabIt — Universal Media Downloader
 
 A desktop app (PySide6) that detects the platform behind a pasted URL and
 routes it to the right download engine — yt-dlp, gallery-dl, Instaloader,
@@ -61,6 +61,9 @@ grabit/
 tests/                      Unit tests for the pure-logic layer (no Qt/network)
 requirements.txt / requirements-optional.txt / pyproject.toml
 ```
+
+## Current engineering contracts
+`AGENTS.md` defines the repository execution/evidence contract. `SECURITY.md` records security invariants and known limitations, `docs/THREAT_MODEL.md` records the threat model, `CHECKPOINT.md` records the current evidence boundary, and `ROADMAP.md` records prioritized follow-up work.
 
 ## What changed, and why
 
@@ -134,9 +137,11 @@ requirements.txt / requirements-optional.txt / pyproject.toml
   every in-flight download. See `DownloadThread._run_concurrent`.
 
 ### Tests
-`tests/` covers the pure-logic layer — `SmartRouter` (including the
+`tests/` currently covers the pure-logic layer — `SmartRouter` (including the
 extension-classification bug fix) and the URL-extraction helpers — with no
-Qt or network dependency, so it runs in CI easily: `pytest tests/`.
+Qt or network dependency. The repository CI runs these tests on Linux,
+Windows, and macOS across Python 3.9–3.12. This is still not proof that every
+live engine or the packaged GUI works on every platform.
 
 ## Honest limitations / things not attempted
 
