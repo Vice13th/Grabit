@@ -1,4 +1,6 @@
-# Changelog — v1.0.0 "Modular Edition, GUI v8"
+# Changelog — GrabIt
+
+> Current package metadata is **1.0.4**. The historical entry below documents the v1.0.0 modular release work; it is not a claim that a v1.0.4 release has been published.
 
 ## GUI redesign (dark/red terminal theme, inspired by reference mockup)
 - New sidebar navigation (`Sidebar` + `QStackedWidget`) replacing the old `QTabWidget`.
