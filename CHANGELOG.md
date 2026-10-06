@@ -48,3 +48,23 @@
 - Visual rendering on a real display (all testing here was headless/offscreen).
 - The tkinter dependency-install window (`bootstrap_ui.py`) — this container has no
   tkinter available to run it; only AST-validated for syntax correctness.
+# Changelog — GrabIt
+
+> Current package metadata is 1.0.4. This entry describes release-engineering changes; it is not a claim that the GitHub Release artifact has already been built or published.
+
+## 1.0.4 release engineering
+
+- Added a maintained PyInstaller spec at packaging/GrabIt.spec.
+- Added a reproducible Windows build entry point at packaging/build_windows.ps1.
+- Preserved the existing GrabIt icon and bundled GUI assets.
+- Added explicit packaging documentation under packaging/README.md.
+- Updated the Inno Setup installer with explicit Start Menu/Desktop shortcut choices and an explicit post-install launch choice.
+- Kept runtime dependency installation out of the Windows installer.
+
+## Existing product changes
+
+1.0.4 retains the previously documented GUI, routing, batch-download, dependency-consent, logging, cancellation, security, and engine behavior.
+
+## Verification boundary
+
+The repository CI tests and release packaging configuration are separate claims. A release artifact is only VERIFIED after the actual Windows executable and installer are built and exercised on Windows.
