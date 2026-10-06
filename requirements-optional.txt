@@ -1,0 +1,18 @@
+# Optional dependencies. Nothing in GrabIt requires these — each unlocks one
+# extra backend, and every engine already fails gracefully with a clear
+# "X not installed" message if its optional package is absent.
+#
+#   pip install -r requirements-optional.txt
+#
+# streamlink currently requires Python 3.10+; GrabIt itself only needs
+# 3.9+, so it's simply reported unavailable on 3.9 instead of breaking
+# the install.
+
+streamlink>=6.7 ; python_version >= "3.10"
+playwright>=1.43
+imageio-ffmpeg>=0.4     # pure-Python ffmpeg fallback when the system has none
+
+# Not installable via pip — GrabIt detects these as external executables:
+#   aria2c   https://aria2.github.io/                (accelerated/multi-source downloads)
+#   rclone   https://rclone.org/                      (cloud remotes via rclone://...)
+#   megadl   https://megatools.megous.com/             (Mega.nz; part of "megatools")
