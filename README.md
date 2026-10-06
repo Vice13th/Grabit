@@ -157,3 +157,17 @@ live engine or the packaged GUI works on every platform.
 - No packaging (PyInstaller/Nuitka) spec is included; the original didn't
   have one either. `pyproject.toml` is set up so `pip install -e .` and a
   `grabit` console script work, which is the piece that was missing before.
+
+## Windows end-user release
+
+For Windows 10/11 x64, the intended end-user path is the GitHub Release installer:
+
+GrabIt-1.0.4-Windows-x64-Setup.exe
+
+The installer is a normal visible Inno Setup wizard. It lets the user choose the installation directory, choose Start Menu/Desktop shortcuts, and choose whether to launch GrabIt after installation. It does not silently install Python, pip packages, FFmpeg, browsers, services, or scheduled tasks.
+
+Developers can reproduce the Windows executable with:
+
+    powershell -ExecutionPolicy Bypass -File packaging\\build_windows.ps1
+
+Packaging is documented in packaging/README.md. A packaged build or installer must not be described as verified until it has actually been built and tested on Windows.
