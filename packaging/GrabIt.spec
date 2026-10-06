@@ -10,7 +10,7 @@ datas = [
 ]
 hiddenimports = [
     "PySide6", "requests", "yt_dlp", "gallery_dl", "instaloader",
-    "yaml", "pinterest_dl", "gdown", "bilix", "twitch_archiver",
+    "yaml", "pinterest_dl", "gdown", "bilix", "twitcharchiver",
     "sclib", "RedDownloader", "tiktok_downloader", "instacapture",
     "civitai_downloader",
 ]
