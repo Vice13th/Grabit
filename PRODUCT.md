@@ -1,4 +1,4 @@
-# GrabIt v1.0.0 — Universal Media Downloader
+# GrabIt — Universal Media Downloader
 ### Product Overview
 
 GrabIt is a desktop application (Windows/macOS/Linux, PySide6) that takes any
@@ -88,7 +88,7 @@ shared across every in-flight download.
   directory.
 
 ## 9. Requirements
-- Python 3.10+
+- Python 3.9+
 - PySide6 (bundled as a required dependency)
 - ~1 GB disk for the full engine set; individual engines can be skipped if
   their platform isn't needed
@@ -102,4 +102,7 @@ Windows users: double-click `GrabIt.pyw` for a guaranteed no-terminal launch,
 or build a single-file `.exe` via the included PyInstaller instructions.
 
 ---
+
+Engineering and security contracts: `AGENTS.md`, `SECURITY.md`, `docs/THREAT_MODEL.md`, `CHECKPOINT.md`, and `ROADMAP.md`.
+
 *Open source, MIT licensed — free to use, modify, and redistribute.*
