@@ -8,14 +8,7 @@ datas = [
     (str(ASSET_DIR / "logo.png"), "grabit/gui/assets"),
     (str(ASSET_DIR / "logo.ico"), "grabit/gui/assets"),
 ]
-hiddenimports = [
-    "PySide6", "requests", "yt_dlp", "gallery_dl", "instaloader",
-    "yaml", "pinterest_dl", "gdown", "bilix", "twitcharchiver",
-    "sclib", "RedDownloader", "tiktok_downloader", "instacapture",
-    "civitai_downloader",
-]
-hiddenimports += collect_submodules("yt_dlp")
-hiddenimports += collect_submodules("gallery_dl")
+hiddenimports = []
 
 a = Analysis(
     [str(ROOT / "main.py")],
