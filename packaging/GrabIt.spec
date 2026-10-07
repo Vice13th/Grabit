@@ -8,6 +8,7 @@ datas = [
     (str(ASSET_DIR / "logo.ico"), "grabit/gui/assets"),
 ]
 hiddenimports = []
+VERSION_FILE = ROOT / "packaging" / "GrabIt.version"
 
 a = Analysis(
     [str(ROOT / "main.py")],
@@ -25,4 +26,5 @@ exe = EXE(
     name="GrabIt", debug=False, bootloader_ignore_signals=False,
     strip=False, upx=False, console=False,
     icon=str(ASSET_DIR / "logo.ico"),
+    version=str(VERSION_FILE),
 )
