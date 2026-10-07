@@ -4,10 +4,17 @@
 #
 #   pip install -r requirements-optional.txt
 #
-# streamlink currently requires Python 3.10+; GrabIt itself only needs
-# 3.9+, so it's simply reported unavailable on 3.9 instead of breaking
-# the install.
+# Streamlink requires Python 3.10+. GrabIt itself supports Python 3.9+.
 
+pinterest-dl>=0.7
+gdown>=5.1
+bilix>=0.19
+twitch-archiver>=3.1
+soundcloud-lib>=0.6
+RedDownloader>=2.7
+tiktok-downloader-py>=1.0
+instacapture>=0.1
+civitai-downloader>=0.2
 streamlink>=6.7 ; python_version >= "3.10"
 playwright>=1.43
 imageio-ffmpeg>=0.4     # pure-Python ffmpeg fallback when the system has none
