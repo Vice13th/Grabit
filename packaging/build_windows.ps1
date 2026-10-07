@@ -30,7 +30,7 @@ if (Test-Path $Venv) { Remove-Item $Venv -Recurse -Force }
 
 Invoke-BasePython @("-m", "venv", $Venv)
 
-$VenvPython = Join-Path $Venv "Scripts" "python.exe"
+$VenvPython = Join-Path $Venv "Scripts\python.exe"
 if (-not (Test-Path $VenvPython)) {
   throw "Packaging virtual environment Python was not created: $VenvPython"
 }
