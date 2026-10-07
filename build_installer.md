@@ -6,17 +6,25 @@ The supported packaged target is Windows 10/11 x64. The executable must be built
 
 Use the maintained build entry point:
 
-    powershell -ExecutionPolicy Bypass -File packaging\\build_windows.ps1
+    powershell -ExecutionPolicy Bypass -File packaging\build_windows.ps1
 
-The script cleans previous build output, installs the project and PyInstaller, runs the repository tests, and builds dist\\GrabIt.exe.
+The script creates a fresh Python 3.11 packaging environment and installs only the dependencies listed in `requirements-packaging.txt`, plus PyInstaller and pytest. It does not install the full optional engine dependency set.
 
-The packaging configuration is packaging/GrabIt.spec. It explicitly includes the existing GrabIt PNG/ICO assets and required runtime imports. yt-dlp and gallery-dl submodules are collected because their extractor/plugin registries use runtime imports.
+The packaging configuration is `packaging/GrabIt.spec`. It includes the existing GrabIt PNG/ICO assets and relies on normal PyInstaller analysis rather than a blanket hidden-import or recursive collection list.
 
-Optional engines are not installed just to make the release look complete.
+## Dependency model
+
+Required runtime dependencies are intentionally small and are listed in `requirements.txt` / `pyproject.toml`.
+
+Optional engines are declared in `requirements-optional.txt` and the `extra` project extra. Their packages are not installed into the Windows packaging environment simply to make optional features appear bundled.
+
+The packaged application must continue to report unavailable optional backends honestly rather than silently installing them.
+
+FFmpeg and external executables such as aria2c, rclone, and megadl are not silently installed by the installer.
 
 ## Application executable
 
-The packaged executable is GrabIt.exe, GUI/no-console, with the existing GrabIt icon and bundled application assets. A successful build does not by itself prove display rendering, installer behavior, uninstallation, or live download behavior.
+The packaged executable is `GrabIt.exe`, GUI/no-console, with the existing GrabIt icon and bundled application assets. A successful build does not by itself prove display rendering, installer behavior, uninstallation, or live download behavior.
 
 ## Installer
 
@@ -24,13 +32,9 @@ Compile the visible Inno Setup installer with:
 
     iscc installer.iss
 
-The output name is GrabIt-1.0.4-Windows-x64-Setup.exe.
+The output name is `GrabIt-1.0.4-Windows-x64-Setup.exe`.
 
 The installer presents normal user choices for Start Menu/Desktop shortcuts and whether GrabIt should launch after installation. It does not install Python, pip packages, FFmpeg, browsers, services, scheduled tasks, or unrelated system components.
-
-## Dependency model
-
-Required Python dependencies are bundled into the executable at build time. Optional engines remain optional. FFmpeg and external executables such as aria2c, rclone, and megadl are not silently installed by the installer.
 
 ## Verification boundary
 
