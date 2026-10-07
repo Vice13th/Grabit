@@ -40,10 +40,7 @@ Invoke-VenvPython @("-m", "pip", "install", "-r", "requirements-packaging.txt")
 Invoke-VenvPython @("-m", "pip", "install", "pyinstaller", "pytest")
 Invoke-VenvPython @("-m", "pip", "install", "-e", ".", "--no-deps")
 
-Invoke-VenvPython @("-c", @"
-import PySide6, requests, yt_dlp, gallery_dl, instaloader, yaml
-print("PACKAGING_CORE_IMPORTS_OK")
-"@)
+Invoke-VenvPython @("-c", "import PySide6, requests, yt_dlp, gallery_dl, instaloader, yaml; print('PACKAGING_CORE_IMPORTS_OK')")
 
 $installed = & $VenvPython -m pip list --format=freeze
 if ($LASTEXITCODE -ne 0) {
