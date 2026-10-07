@@ -7,6 +7,8 @@ datas = [
     (str(ASSET_DIR / "logo.png"), "grabit/gui/assets"),
     (str(ASSET_DIR / "logo.ico"), "grabit/gui/assets"),
 ]
+hiddenimports = []
+
 a = Analysis(
     [str(ROOT / "main.py")],
     pathex=[str(ROOT)],
