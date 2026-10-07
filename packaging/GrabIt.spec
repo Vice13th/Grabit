@@ -1,6 +1,5 @@
 # PyInstaller spec for the Windows x64 release build.
 from pathlib import Path
-from PyInstaller.utils.hooks import collect_submodules
 
 ROOT = Path(SPECPATH).resolve().parent
 ASSET_DIR = ROOT / "grabit" / "gui" / "assets"
@@ -8,8 +7,6 @@ datas = [
     (str(ASSET_DIR / "logo.png"), "grabit/gui/assets"),
     (str(ASSET_DIR / "logo.ico"), "grabit/gui/assets"),
 ]
-hiddenimports = []
-
 a = Analysis(
     [str(ROOT / "main.py")],
     pathex=[str(ROOT)],
